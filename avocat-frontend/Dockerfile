@@ -1,6 +1,5 @@
 FROM node:20-alpine
 
-# تثبيت curl
 RUN apk add --no-cache curl
 
 WORKDIR /usr/src/app
@@ -10,6 +9,10 @@ RUN npm install
 
 COPY . .
 
+RUN npm run build
+
+RUN npm install -g serve
+
 EXPOSE 8080
-RUN chmod +x docker-entrypoint.sh
-CMD ["sh", "docker-entrypoint.sh"]
+
+CMD ["sh", "-c", "serve -s dist -l ${PORT:-8080}"]
