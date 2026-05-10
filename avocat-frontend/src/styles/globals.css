@@ -1,0 +1,327 @@
+/* ============================
+   Base
+   ============================ */
+@layer base {
+  :root {
+    --font-display: 'Playfair Display', 'Cairo', 'Inter', serif;
+  }
+
+  html,
+  body {
+    @apply min-h-screen antialiased;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    background-image: var(--gradient-shell);
+    background-attachment: fixed;
+    font-family: var(--font-sans);
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+    background:
+      radial-gradient(circle at top, hsl(var(--surface-glow)) 0%, transparent 34%),
+      radial-gradient(circle at 18% 16%, hsl(var(--surface-highlight)) 0%, transparent 24%),
+      linear-gradient(180deg, transparent 0%, hsl(var(--background) / 0.08) 100%);
+  }
+
+  html[lang='ar'] body {
+    font-family: var(--font-ar);
+  }
+
+  html[lang='ar'] .font-display {
+    font-family: var(--font-ar);
+  }
+
+  html[lang='en'] .font-display {
+    font-family: 'Playfair Display', 'Inter', serif;
+  }
+
+  #root {
+    @apply flex min-h-screen flex-col;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  ::selection {
+    background: hsl(var(--primary) / 0.28);
+    color: hsl(var(--foreground));
+  }
+
+  /* Scrollbars */
+  :root,
+  body {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--primary) / 0.38) transparent;
+  }
+
+  body::-webkit-scrollbar {
+    width: 0.6rem;
+  }
+
+  body::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  body::-webkit-scrollbar-thumb {
+    border-radius: 9999px;
+    background-image: linear-gradient(180deg, hsl(var(--accent) / 0.55), hsl(var(--primary) / 0.74));
+  }
+
+  html[data-theme='dark'] body::-webkit-scrollbar-thumb {
+    background-image: linear-gradient(180deg, hsl(var(--accent) / 0.38), hsl(var(--primary) / 0.62));
+  }
+}
+
+/* ============================
+   Components
+   ============================ */
+@layer components {
+  .section-title {
+    font-family: var(--font-display);
+    letter-spacing: 0.08em;
+    color: hsl(var(--foreground));
+  }
+
+  .chip-soft {
+    border-radius: 999px;
+    padding: 0.3rem 0.85rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    background: hsl(var(--surface-raised) / 0.78);
+    border: 1px solid hsl(var(--border) / 0.72);
+    color: hsl(var(--muted-foreground));
+    box-shadow: inset 0 1px 0 hsl(var(--foreground) / 0.04);
+  }
+
+  .surface-premium {
+    position: relative;
+    border-radius: var(--radius-2xl);
+    border: 1px solid hsl(var(--border) / 0.78);
+    background:
+      linear-gradient(180deg, hsl(var(--card) / 0.96), hsl(var(--card-elevated) / 0.94)),
+      radial-gradient(circle at top, hsl(var(--surface-glow)) 0%, transparent 42%);
+    box-shadow: var(--shadow-card);
+    backdrop-filter: blur(16px);
+  }
+
+  .surface-premium::before {
+    content: '';
+    position: absolute;
+    inset: 1px;
+    border-radius: inherit;
+    pointer-events: none;
+    background: linear-gradient(180deg, hsl(var(--foreground) / 0.05), transparent 18%);
+    opacity: 0.7;
+  }
+
+  .surface-premium-danger {
+    background:
+      linear-gradient(180deg, hsl(var(--card) / 0.97), hsl(var(--card-elevated) / 0.95)),
+      radial-gradient(circle at top, hsl(var(--surface-danger-glow)) 0%, transparent 42%);
+    box-shadow: var(--shadow-danger-glow);
+  }
+
+  .card-legal,
+  .card-premium {
+    position: relative;
+    border-radius: var(--radius-2xl);
+    background:
+      linear-gradient(180deg, hsl(var(--card) / 0.98), hsl(var(--card-elevated) / 0.96)),
+      radial-gradient(circle at top, hsl(var(--surface-glow)) 0%, transparent 46%);
+    border: 1px solid hsl(var(--border) / 0.78);
+    box-shadow: var(--shadow-card);
+    transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+    isolation: isolate;
+  }
+
+  .card-legal:hover,
+  .card-premium:hover {
+    transform: translateY(-3px);
+    border-color: hsl(var(--accent) / 0.22);
+    box-shadow: var(--shadow-elevated);
+  }
+
+  .field-shell {
+    border-radius: var(--radius-xl);
+    border: 1px solid hsl(var(--border) / 0.78);
+    background: linear-gradient(180deg, hsl(var(--surface-raised) / 0.9), hsl(var(--surface) / 0.92));
+    box-shadow: inset 0 1px 0 hsl(var(--foreground) / 0.05);
+    transition: border-color 180ms ease, box-shadow 180ms ease, background 180ms ease;
+  }
+
+  .field-shell:focus-within {
+    border-color: hsl(var(--ring) / 0.46);
+    box-shadow: 0 0 0 4px hsl(var(--ring) / 0.14), inset 0 1px 0 hsl(var(--foreground) / 0.05);
+  }
+
+  .table-shell {
+    border-radius: var(--radius-2xl);
+    border: 1px solid hsl(var(--border) / 0.78);
+    background:
+      linear-gradient(180deg, hsl(var(--card) / 0.97), hsl(var(--surface-elevated) / 0.94)),
+      radial-gradient(circle at top, hsl(var(--surface-glow)) 0%, transparent 48%);
+    box-shadow: var(--shadow-card);
+    backdrop-filter: blur(16px);
+  }
+
+  .section-chrome {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius-2xl);
+    border: 1px solid hsl(var(--border) / 0.76);
+    background:
+      linear-gradient(135deg, hsl(var(--card) / 0.98), hsl(var(--surface-elevated) / 0.94) 58%, hsl(var(--surface-overlay) / 0.96)),
+      radial-gradient(circle at top, hsl(var(--surface-glow)) 0%, transparent 46%);
+    box-shadow: var(--shadow-elevated);
+    backdrop-filter: blur(18px);
+  }
+
+  .section-chrome::after {
+    content: '';
+    position: absolute;
+    inset: auto 1.25rem 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, hsl(var(--accent) / 0.4), transparent);
+    opacity: 0.7;
+  }
+
+  /* react-datepicker token styling */
+  .react-datepicker {
+    border: 1px solid hsl(var(--border)) !important;
+    background: hsl(var(--card)) !important;
+    color: hsl(var(--foreground)) !important;
+    border-radius: 1rem !important;
+    overflow: hidden;
+    box-shadow: var(--shadow-xl) !important;
+  }
+
+  .react-datepicker__header {
+    background: hsl(var(--muted)) !important;
+    border-bottom: 1px solid hsl(var(--border)) !important;
+  }
+
+  .react-datepicker__day,
+  .react-datepicker__day-name {
+    color: hsl(var(--foreground)) !important;
+  }
+
+  .react-datepicker__day:hover {
+    background: hsl(var(--accent) / 0.14) !important;
+    border-radius: 0.75rem !important;
+  }
+
+  .react-datepicker__day--selected,
+  .react-datepicker__day--keyboard-selected {
+    background: hsl(var(--primary)) !important;
+    color: hsl(var(--primary-foreground)) !important;
+    border-radius: 0.75rem !important;
+  }
+
+  .kpi-card {
+    @apply rounded-2xl border p-5 transition-all duration-200;
+    border-color: hsl(var(--border) / 0.75);
+    background:
+      linear-gradient(180deg, hsl(var(--card) / 0.96), hsl(var(--surface-elevated) / 0.92)),
+      radial-gradient(circle at top, hsl(var(--surface-glow)) 0%, transparent 48%);
+    box-shadow: var(--shadow-card);
+  }
+
+  .kpi-card:hover {
+    box-shadow: var(--shadow-elevated);
+    @apply -translate-y-0.5;
+  }
+
+  .legal-header {
+    background: var(--gradient-hero);
+    @apply text-primary-foreground;
+  }
+
+  .tab-trigger {
+    @apply relative px-4 py-2.5 text-sm font-medium text-muted-foreground transition-colors;
+  }
+
+  .tab-trigger[data-state='active'] {
+    @apply text-foreground;
+  }
+
+  .tab-trigger[data-state='active']::after {
+    content: '';
+    @apply absolute bottom-0 left-0 right-0 h-0.5 rounded-full;
+    background: linear-gradient(90deg, transparent, hsl(var(--accent)), transparent);
+  }
+
+  .status-badge {
+    @apply inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold;
+    border: 1px solid transparent;
+  }
+
+  .status-open {
+    background: hsl(var(--success) / 0.14);
+    color: hsl(var(--success));
+    border-color: hsl(var(--success) / 0.22);
+  }
+
+  .status-closed {
+    background: hsl(var(--muted));
+    color: hsl(var(--muted-foreground));
+    border-color: hsl(var(--border));
+  }
+
+  .status-pending {
+    background: hsl(var(--warning) / 0.14);
+    color: hsl(var(--warning));
+    border-color: hsl(var(--warning) / 0.22);
+  }
+
+  .status-in-progress {
+    background: hsl(var(--primary) / 0.14);
+    color: hsl(var(--primary));
+    border-color: hsl(var(--primary) / 0.22);
+  }
+
+  .action-btn {
+    @apply inline-flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold transition-all duration-200;
+  }
+
+  .action-btn-primary {
+    @apply action-btn;
+    background: var(--gradient-cta);
+    color: hsl(var(--primary-foreground));
+    box-shadow: var(--shadow-primary-glow);
+  }
+
+  .action-btn-outline {
+    @apply action-btn;
+    border: 1px solid hsl(var(--border) / 0.76);
+    background: hsl(var(--surface-raised) / 0.72);
+    color: hsl(var(--foreground));
+  }
+
+  .action-btn-destructive {
+    @apply action-btn;
+    background: var(--gradient-danger);
+    color: hsl(var(--destructive-foreground));
+    box-shadow: var(--shadow-danger-glow);
+  }
+
+  .action-btn-accent {
+    @apply action-btn;
+    background: hsl(var(--accent));
+    color: hsl(var(--accent-foreground));
+  }
+
+  .action-btn-primary:hover,
+  .action-btn-outline:hover,
+  .action-btn-destructive:hover,
+  .action-btn-accent:hover {
+    transform: translateY(-1px);
+  }
+}

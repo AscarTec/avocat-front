@@ -1,0 +1,88 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "checkJs": false,
+    "isolatedModules": true,
+    "jsx": "react-jsx",
+    "lib": [
+      "DOM",
+      "DOM.Iterable",
+      "ESNext"
+    ],
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "noEmit": true,
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ],
+      "@app/*": [
+        "./src/app/*"
+      ],
+      "@assets/*": [
+        "./src/assets/*"
+      ],
+      "@config/*": [
+        "./src/config/*"
+      ],
+      "@features/*": [
+        "./src/features/*"
+      ],
+      "@pages/*": [
+        "./src/pages/*"
+      ],
+      "@providers": [
+        "./src/providers/index.js"
+      ],
+      "@providers/*": [
+        "./src/providers/*"
+      ],
+      "@routes/*": [
+        "./src/routes/*"
+      ],
+      "@radix-ui/react-slot": [
+        "./src/types/stubs/radix-react-slot.d.ts"
+      ],
+      "@react-spring/web": [
+        "./src/types/stubs/react-spring-web.d.ts"
+      ],
+      "@shared/*": [
+        "./src/shared/*"
+      ],
+      "@styles/*": [
+        "./src/styles/*"
+      ],
+      "react-redux": [
+        "./src/types/stubs/react-redux.d.ts"
+      ],
+      "react-router-dom": [
+        "./src/types/stubs/react-router-dom.d.ts"
+      ],
+      "recharts": [
+        "./src/types/stubs/recharts.d.ts"
+      ],
+      "@theme/*": [
+        "./src/theme/*"
+      ]
+    },
+    "resolveJsonModule": true,
+    "strict": false,
+    "target": "ES2020",
+    "typeRoots": [
+      "./src/types",
+      "./node_modules/@types"
+    ],
+    "types": []
+  },
+  "exclude": [
+    "node_modules",
+    "dist"
+  ],
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.js",
+    "src/**/*.jsx",
+    "src/types/**/*.d.ts"
+  ]
+}
