@@ -66,12 +66,9 @@ export default defineConfig({
     __APP_ENV__: process.env.APP_ENV,
   },
 
-  server: {
-    host: "0.0.0.0",
-    port: 8080,
-    open: false,
-    cors: true,
-    historyApiFallback: true, 
+server: {
+    host: true,
+    port: strictPort: false, // اسمح لـ Vite بتغيير المنفذ إذا لزم الأمر
   },
 
   build: {
