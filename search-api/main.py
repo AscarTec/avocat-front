@@ -104,7 +104,7 @@ async def search_case(request: Request, x_request_source: str = Header(None)):
             content={"error": f"حدث خطأ داخلي: {str(e)}"},
         )
 
-
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 9100))
-    uvicorn.run("main:app", host="0.0.0.0", port=port, proxy_headers=True)
+    # تأكد أن اسم المتغير PORT بالكبير كما هو في بيئة Railway
+    port = int(os.environ.get("PORT", 8000)) 
+    uvicorn.run(app, host="0.0.0.0", port=port)
