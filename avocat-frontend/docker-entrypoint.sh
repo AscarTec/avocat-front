@@ -1,10 +1,8 @@
 #!/bin/sh
-set -eu
-
-cd /usr/src/app
 
 if [ ! -d node_modules ]; then
   npm install
 fi
 
-npm run dev -- --host 0.0.0.0 --port="${VITE_PORT:-8080}"
+# التغيير هنا: استخدام PORT بدلاً من VITE_PORT
+npm run dev -- --host 0.0.0.0 --port="${PORT:-8080}"
