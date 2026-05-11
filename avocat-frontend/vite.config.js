@@ -70,7 +70,10 @@ export default defineConfig({
 server: {
     host: true,
     port: process.env.PORT || 8080, // استخدام المنفذ من النظام أو 8080 كافتراضي
-    strictPort: false,             // لاحظ الفاصلة (,) هنا وليس نقطتين
+    strictPort: false,       
+  hmr: {
+      overlay: false, 
+    },
 },
 
   build: {
