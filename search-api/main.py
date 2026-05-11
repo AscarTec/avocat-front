@@ -33,7 +33,11 @@ templates = Jinja2Templates(directory="templates")
 # الصفحة الرئيسية (نفس المسار القديم)
 @app.get("/", response_class=HTMLResponse)
 async def home(request: Request):
-    return templates.TemplateResponse("search_form.html", {"request": request})
+    return templates.TemplateResponse(
+    request=request, 
+    name="search_form.html", 
+    context={}
+)
 
 
 # نموذج الطلب الجديد (مع توافق للأسماء القديمة)
