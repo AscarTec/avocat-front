@@ -66,10 +66,12 @@ export default defineConfig({
     __APP_ENV__: process.env.APP_ENV,
   },
 
+// ابحث عن كائن server داخل defineConfig
 server: {
     host: true,
-    port: strictPort: false, // اسمح لـ Vite بتغيير المنفذ إذا لزم الأمر
-  },
+    port: process.env.PORT || 8080, // استخدام المنفذ من النظام أو 8080 كافتراضي
+    strictPort: false,             // لاحظ الفاصلة (,) هنا وليس نقطتين
+},
 
   build: {
     outDir: 'dist', 
