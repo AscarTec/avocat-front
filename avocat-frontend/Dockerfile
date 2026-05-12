@@ -1,20 +1,21 @@
-# المرحلة الأولى: البناء
-FROM node:20-alpine AS build
-WORKDIR /usr/src/app
+# المرحلة الأولى: البناء (Build)
+FROM node:20-alpine AS build-stage
+WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY . .
 RUN npm run build
 
-# المرحلة الثانية: التشغيل (باستخدام خادم خفيف مثل Nginx أو serve)
+# المرحلة الثانية: التشغيل (Production)
 FROM node:20-alpine
-WORKDIR /usr/src/app
-# تثبيت أداة بسيطة لتشغيل الملفات الساكنة
+WORKDIR /app
+# تثبيت خادم بسيط للملفات الساكنة
 RUN npm install -g serve
 # نسخ الملفات التي تم بناؤها فقط من المرحلة الأولى
-COPY --from=build /usr/src/app/dist ./dist
+COPY --from=build-stage /app/dist ./dist
 
+# Railway ستقوم بتمرير المنفذ عبر متغير PORT
 EXPOSE 8080
 
-# تشغيل الخادم على المنفذ المطلوب
-CMD ["serve", "-s", "dist", "-l", "8080"]
+# تشغيل الخادم وتوجيه كل الطلبات لـ index.html (مهم لـ React Router)
+CMD ["sh", "-c", "serve -s dist -l $PORT"]
