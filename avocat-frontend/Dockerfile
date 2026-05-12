@@ -1,18 +1,20 @@
-FROM node:20-alpine
-
-RUN apk add --no-cache curl
-
+# المرحلة الأولى: البناء
+FROM node:20-alpine AS build
 WORKDIR /usr/src/app
-
 COPY package*.json ./
 RUN npm install
-
 COPY . .
+RUN npm run build
 
-# السماح بالوصول للمنفذ
+# المرحلة الثانية: التشغيل (باستخدام خادم خفيف مثل Nginx أو serve)
+FROM node:20-alpine
+WORKDIR /usr/src/app
+# تثبيت أداة بسيطة لتشغيل الملفات الساكنة
+RUN npm install -g serve
+# نسخ الملفات التي تم بناؤها فقط من المرحلة الأولى
+COPY --from=build /usr/src/app/dist ./dist
+
 EXPOSE 8080
 
-RUN chmod +x docker-entrypoint.sh
-
-# التعديل هنا: استخدام ENTRYPOINT
-ENTRYPOINT ["./docker-entrypoint.sh"]
+# تشغيل الخادم على المنفذ المطلوب
+CMD ["serve", "-s", "dist", "-l", "8080"]
