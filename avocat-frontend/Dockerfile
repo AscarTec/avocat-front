@@ -1,6 +1,5 @@
 FROM node:20-alpine
 
-# تثبيت curl
 RUN apk add --no-cache curl
 
 WORKDIR /usr/src/app
@@ -10,6 +9,10 @@ RUN npm install
 
 COPY . .
 
+# السماح بالوصول للمنفذ
 EXPOSE 8080
+
 RUN chmod +x docker-entrypoint.sh
-CMD ["sh", "docker-entrypoint.sh"]
+
+# التعديل هنا: استخدام ENTRYPOINT
+ENTRYPOINT ["./docker-entrypoint.sh"]
