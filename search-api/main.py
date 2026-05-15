@@ -14,10 +14,10 @@ import uvicorn
 # تحميل إعدادات البيئة
 load_dotenv()
 
-app = FastAPI(title="Court Case Search API - Modernized")
+app = FastAPI(title="Court Case Search API", redirect_slashes=True)
 
 # إعداد CORS للسماح بالمجالات المحددة
-allowed_origins = os.environ.get("FASTAPI_ALLOWED_ORIGINS", "*").split(',')
+allowed_origins = os.environ.get("FASTAPI_ALLOWED_ORIGINS", "*").split(",")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=allowed_origins,
@@ -35,10 +35,8 @@ templates = Jinja2Templates(directory="templates")
 @app.get("/", response_class=HTMLResponse)
 async def home(request: Request):
     return templates.TemplateResponse(
-    request=request, 
-    name="search_form.html", 
-    context={}
-)
+        request=request, name="search_form.html", context={}
+    )
 
 
 # نموذج الطلب الجديد (مع توافق للأسماء القديمة)
@@ -108,6 +106,7 @@ async def search_case(request: Request, x_request_source: Optional[str] = Header
             status_code=500,
             content={"error": f"حدث خطأ داخلي: {str(e)}"},
         )
+
 
 if __name__ == "__main__":
     # تأكد أن اسم المتغير PORT بالكبير كما هو في بيئة Railway
