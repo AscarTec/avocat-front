@@ -111,5 +111,5 @@ async def search_case(request: Request, x_request_source: Optional[str] = Header
 
 if __name__ == "__main__":
     # تأكد أن اسم المتغير PORT بالكبير كما هو في بيئة Railway
-    port = int(os.environ.get("PORT", 8000)) 
+    port = int(os.environ.get("PORT", 8080) 
     uvicorn.run(app, host="0.0.0.0", port=port)
