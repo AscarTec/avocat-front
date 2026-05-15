@@ -78,7 +78,7 @@ async def fetch_case_status(data: SearchRequest):
 
 # المسار الرئيسي /search
 @app.post("/search")
-async def search_case(request: Request, x_request_source: str = Header(None)):
+async def search_case(request: Request, x_request_source: Optional[str] = Header(None)):
     try:
         body = await request.json()
         data = SearchRequest.from_legacy(body)
