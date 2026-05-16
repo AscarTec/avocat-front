@@ -332,6 +332,8 @@ const ar = {publicSite: {
     logout: "تسجيل الخروج",
     applyFilters: "تطبيق",
     reset: "إعادة تعيين",
+    demoModeBanner:
+      "وضع تجريبي: تُعرض بيانات افتراضية لاستكشاف كل أقسام النظام دون اتصال بالخادم الحقيقي.",
   },
   language: {
     switchToEnglish: "EN",
@@ -340,6 +342,7 @@ const ar = {publicSite: {
     arabic: "العربية",
   },
   roles: {
+    super_admin: "مدير عام",
     admin: "مدير",
     lawyer: "محامٍ",
     client: "عميل",

@@ -39,7 +39,7 @@ const SectionHeader = ({
     if (typeof IconComponent === "string") return IconComponent;
     if (isValidElement(IconComponent)) return IconComponent;
     // Lucide (and other) icons are often forwardRef objects, not plain functions
-    return <IconComponent className="h-5 w-5 text-accent" />;
+    return <IconComponent className="h-5 w-5 text-primary" />;
   })();
 
   const renderPrimaryAction =
@@ -60,7 +60,7 @@ const SectionHeader = ({
               {typeof renderedIcon === "string" ? (
                 <img src={renderedIcon} alt="" className="h-7 w-7 object-contain sm:h-8 sm:w-8" />
               ) : (
-                <div className="text-accent">{renderedIcon}</div>
+                <div className="text-primary">{renderedIcon}</div>
               )}
             </div>
           )}

@@ -3,17 +3,13 @@
  * in-memory bundle return 404. Recover by reloading once so index.html
  * and the main entry pull the current asset graph.
  */
-const STALE_ASSET_RELOAD_KEY = 'avocat_stale_chunk_reload';
+let reloadScheduled = false;
 
 function reloadOnceForStaleBuild(): void {
-  try {
-    if (sessionStorage.getItem(STALE_ASSET_RELOAD_KEY)) {
-      return;
-    }
-    sessionStorage.setItem(STALE_ASSET_RELOAD_KEY, '1');
-  } catch {
-    // sessionStorage unavailable (private mode) — still attempt reload
+  if (reloadScheduled) {
+    return;
   }
+  reloadScheduled = true;
   window.location.reload();
 }
 
@@ -26,14 +22,6 @@ function isDynamicImportChunkFailure(message: string): boolean {
 }
 
 export function registerStaleBuildRecovery(): void {
-  window.addEventListener('load', () => {
-    try {
-      sessionStorage.removeItem(STALE_ASSET_RELOAD_KEY);
-    } catch {
-      /* ignore */
-    }
-  });
-
   window.addEventListener('vite:preloadError', (event: Event) => {
     event.preventDefault();
     reloadOnceForStaleBuild();

@@ -35,6 +35,8 @@ const en = {
     logout: "Logout",
     applyFilters: "Apply filters",
     reset: "Reset",
+    demoModeBanner:
+      "Demo mode: sample data is shown so you can explore every workspace area without a live API.",
   },
   language: {
     switchToEnglish: "EN",
@@ -43,6 +45,7 @@ const en = {
     arabic: "العربية",
   },
   roles: {
+    super_admin: "Super admin",
     admin: "Admin",
     lawyer: "Lawyer",
     client: "Client",

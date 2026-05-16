@@ -1,14 +1,41 @@
 <!doctype html>
-<html lang="ar" dir="rtl" class="dark">
+<html lang="ar" dir="rtl">
 
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Avoid flash of wrong theme: align with ThemeContext (theme / avocat_theme keys) -->
+    <script>
+      (function () {
+        try {
+          var k = 'theme';
+          var legacy = 'avocat_theme';
+          var t = localStorage.getItem(k) || localStorage.getItem(legacy);
+          var root = document.documentElement;
+          root.classList.remove('light', 'dark');
+          if (t === 'light' || t === 'dark') {
+            root.classList.add(t);
+            root.dataset.theme = t;
+            root.style.colorScheme = t;
+            return;
+          }
+          var dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+          var mode = dark ? 'dark' : 'light';
+          root.classList.add(mode);
+          root.dataset.theme = mode;
+          root.style.colorScheme = mode;
+        } catch (e) {
+          document.documentElement.classList.add('dark');
+          document.documentElement.dataset.theme = 'dark';
+          document.documentElement.style.colorScheme = 'dark';
+        }
+      })();
+    </script>
 
     <!-- Meta Tags -->
 
-    <meta name="theme-color" content="#ffffff" />
+    <meta name="theme-color" content="#0d3346" />
     <meta
       name="description"
       content="Avocat System For Lawyers Offices - مكتب محاماة أغوكات: تعد أفوكات أول منظومة تغير قواعد العمل في مجال المحاماة، حيث تساهم أدواتها التكنولوجية المتقدمة في تبسيط سير العمل وإدارة القضايا بكفاءة وتقديم خدمات استثنائية للعملاء. اكتشف مستقبل ممارسة المحاماة مع الحل الرقمي الشامل المقدم من أفوكات."
