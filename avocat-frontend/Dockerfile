@@ -13,9 +13,11 @@ WORKDIR /app
 RUN npm install -g serve
 # نسخ الملفات التي تم بناؤها فقط من المرحلة الأولى
 COPY --from=build-stage /app/dist ./dist
+# نسخ إعدادات serve لدعم توجيه React Router
+COPY serve.json ./serve.json
 
 # Railway ستقوم بتمرير المنفذ عبر متغير PORT
 EXPOSE 8080
 
-# تشغيل الخادم وتوجيه كل الطلبات لـ index.html (مهم لـ React Router)
-CMD ["sh", "-c", "serve -s dist -l $PORT"]
+# تشغيل الخادم مع ملف الإعدادات لتوجيه كل الطلبات لـ index.html (مهم لـ React Router)
+CMD ["sh", "-c", "serve dist --config serve.json -l $PORT"]
