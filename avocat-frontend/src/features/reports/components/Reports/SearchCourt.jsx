@@ -3,6 +3,7 @@
   import api from '@shared/services/api/axiosConfig';
   import { useLanguage } from '@shared/contexts/LanguageContext';
   import { Button } from '@shared/ui/button';
+  import CourtSearchResults from '@features/courts/components/CourtSearchResults';
 
   const SearchCourt = () => {
     const { t, isRTL } = useLanguage();
@@ -162,11 +163,15 @@
           </div>
 
           {searchResults && (
-            <div className="rounded-2xl border border-border bg-card p-4 text-sm text-foreground shadow-sm sm:p-6">
-              <div className="court-search-results prose prose-sm max-w-none dark:prose-invert">
-                <div dangerouslySetInnerHTML={{ __html: searchResults }} />
+            typeof searchResults === 'string' ? (
+              <div className="rounded-2xl border border-border bg-card p-4 text-sm text-foreground shadow-sm sm:p-6">
+                <div className="court-search-results prose prose-sm max-w-none dark:prose-invert">
+                  <div dangerouslySetInnerHTML={{ __html: searchResults }} />
+                </div>
               </div>
-            </div>
+            ) : (
+              <CourtSearchResults data={searchResults} />
+            )
           )}
         </div>
       </div>
